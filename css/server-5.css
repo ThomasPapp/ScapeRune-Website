@@ -1,0 +1,159 @@
+.slist_header td {
+	border-bottom: 2px solid black; 
+	border-top: 2px solid #8E7246; 
+	background-color: #3D311E; 
+}
+table.server tr.r1 { 
+	background: #362D1A; 
+	line-height: 16px;
+}
+table.server tr.r2 { 
+	background: #261F13; 
+	line-height: 16px;
+}
+table.server tr td.f {
+	background-image: url('../img/title2/membership_benefits.gif');
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	background-position: 2px 2px;
+}
+table.server tr td.m {
+	background-image: url('../img/title2/create.gif');
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	background-position: 2px 2px;
+}
+table.server tr td.us {
+	background-image: url('../img/worldselection/usflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.uk {
+	background-image: url('../img/worldselection/ukflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.ca {
+	background-image: url('../img/worldselection/canadaflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.nl {
+	background-image: url('../img/worldselection/nlflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.au {
+	background-image: url('../img/worldselection/auflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.se {
+	background-image: url('../img/worldselection/swedenflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.fi {
+	background-image: url('../img/worldselection/finflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server tr td.de {
+	background-image: url('../img/worldselection/gerflag.gif');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	background-position: 0px 4px;
+}
+table.server { 
+	color: white; 
+	margin: 10px;
+	width: 581px; 
+	text-align: left;
+}
+.text {
+	padding-top: 10px;
+	width: 460px;
+	height: 18px;
+	margin: auto;
+}
+#top-text-left {
+	float: left;
+	margin-left: 9px;
+}
+#top-text-right {
+	float: right;
+	margin-right: 4px;
+}
+.buttons { 
+	width: 460px; 
+	height: 130px; 
+	position: relative;
+	right: 70px;
+	left: 70px;
+	margin-bottom: 15px;
+}
+.buttons a{ 
+	display: block; 
+	position: absolute; 
+	width: 180px; 
+	height: 110px; 
+	margin: 5px; 
+	background: #808080; 
+	font-weight: bold; 
+	text-align: center; 
+	border: 5px outset #909090;
+} 
+.buttons a:hover { 
+	background: #A0A0A0; 
+	border-color: #ffffff;
+	text-decoration: none;
+} 
+#button-left {
+	left: 0px; 
+	top: 0px;
+} 
+#button-left span.lev_1 {
+	background-image: url('../img/worldselection/choosebutton_free4.jpg');
+	padding-top: 100px;
+	color: #B4A796;
+} 
+#button-left a:hover span.lev_1 {
+	color: #B9B3A2;
+} 
+#button-right {
+	right: 0px; 
+	top: 0px;
+} 
+#button-right span.lev_1 { 
+	background-image: url('../img/worldselection/choosebutton_gold_members4.jpg');
+	padding-top: 100px;
+	color: #CFB77B;
+}
+#button-right a:hover span.lev_1 {
+	color: #D3BD89;
+} 
+span.lev_1 { 
+	display: block; 
+	cursor: pointer; 
+	cursor: hand; 
+	position: absolute; 
+	top: -10px; 
+	left: -10px; 
+	width: 200px; 
+	height: 30px;
+}
+a:hover span.lev_1 { 
+	background-position: 0 130px;
+}
+h1 {
+	font-size: 16px;
+	margin-top: 0;
+	margin-bottom: 5px;
+}

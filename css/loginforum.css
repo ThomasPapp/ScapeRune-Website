@@ -1,0 +1,59 @@
+.buttons {
+    width: 600px;
+    height: 60px;
+    position: relative;
+    margin: auto;
+}
+
+.buttons a {
+    display: block;
+    position: absolute;
+    width: 260px;
+    height: 40px;
+    margin: 5px;
+    background: #808080;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: 2px outset #909090;
+}
+
+.buttons a:hover {
+    background: #A0A0A0;
+    border-color: #ffffff
+}
+
+#button-left {
+    left: 0px;
+    top: 0px;
+    padding-top: 3px;
+}
+
+#button-left span.lev1 {
+    background-image: url('../img/loginpage/open.gif');
+}
+
+#button-right {
+    right: 0px;
+    top: 0px;
+    padding-top: 3px;
+}
+
+#button-right span.lev1 {
+    background-image: url('../img/loginpage/lost-your.gif');
+}
+
+span.lev1 {
+    display: block;
+    cursor: pointer;
+    cursor: hand;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 286px;
+    height: 60px;
+}
+
+a:hover span.lev1 {
+    background-position: 0 60px;
+}

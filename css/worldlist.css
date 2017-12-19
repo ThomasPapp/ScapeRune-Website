@@ -1,0 +1,44 @@
+.c{width:651px;margin:0 auto;text-align: center;}
+.server_list h1 { font-size: 16px; text-align: center; margin: 2px 0 5px 0; }
+.slist_header td { border-bottom: 2px solid black; border-top: 2px solid #8E7246; background-color: #3D311E; }
+tr { background-color: #362D1A;}
+.r2 td { background-color: #261F13;}
+.text { width: 600px; height: 15px; position: relative; margin: 10px 0 0 0; }  
+.buttons { width: 600px; height: 160px; position: relative; margin: 0; }
+a.button { display: block; position: relative; width: 190px; height: 120px; font-weight: bold; text-align: center; margin: 3px 0;}
+a.button:hover { text-decoration: none; }
+#button-left a { color: #B1A994;  background: #342D23; border: 5px outset #342D23; }
+#button-left a:hover { color: #E1D5BD; background: #514D41; border-color: #514D41}  
+#button-right a { color: #D0B87C; background: #563E22; border: 5px outset #D0B87C; }
+#button-right a:hover { color: #D1B77A; background: #71512A; border-color: #D1B77A}  
+div.button {text-align: center; display: block; line-height: 110%;width:200px;margin:20px auto 0;}
+#button-left {left: 70px; top: 0px;}  
+#button-left span.lev_1 {  background-image: url('../img/worldselection/choosebutton_free4.jpg');}  
+#button-right {right: 70px;}  
+#button-right span.lev_1 { background-image: url('../img/worldselection/choosebutton_gold_members4.jpg');}  
+#top-text-left {position: absolute; width: 200px; left: 70px; top: 0px; text-align: center;} 
+#top-text-right {text-align: center;} 
+span.lev_1 { display: block; cursor: pointer; cursor: hand; position: absolute; top: -5px; left: -5px; width: 200px; height: 130px; } 
+a:hover span.lev_1 { background-position: 0 130px; } 
+span.lev_1 span { position: absolute; bottom: 15px;left:75px;}
+.server { width: 630px; margin: 5px auto 10px auto; text-align: left; }
+td.m { background-image: url('../img/title2/create.gif'); background-repeat: no-repeat; background-position: 0 2px; padding-left: 20px; }
+td.f { background-image: url('../img/title2/membership_benefits.gif'); background-repeat: no-repeat; background-position: 0 2px; padding-left: 20px; }
+td.US { background-image: url('../img/worldselection/usflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.CA { background-image: url('../img/worldselection/canadaflag.gif'); background-repeat: no-repeat; background-position: 0 4px; padding-left: 35px; }
+td.GB { background-image: url('../img/worldselection/ukflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.NL { background-image: url('../img/worldselection/nlflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.AU { background-image: url('../img/worldselection/auflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.SE { background-image: url('../img/worldselection/swedenflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.FI { background-image: url('../img/worldselection/finflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+td.DE { background-image: url('../img/worldselection/gerflag.gif'); background-repeat: no-repeat; background-position: 0 4px;padding-left: 35px; }
+div.left_advert {
+ position: absolute;
+ width: 140px;
+ height: 991px;
+ top: 70px;
+ left: 0;
+}
+.clear { 
+ clear: both;
+} 

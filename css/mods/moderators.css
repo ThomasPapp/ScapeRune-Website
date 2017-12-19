@@ -1,0 +1,162 @@
+.optthree{
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom:40px;
+    text-align:center;
+}
+
+.option_title{
+    margin-left:auto;
+    margin-right:auto;
+    height:20%;
+    width:94%;
+    color:white;
+    background-color: black;
+    border:2px solid #382418;
+    margin-bottom:4px;
+    padding:3px;
+}
+
+.option {
+    display:inline-block;
+    padding: 8px;
+    height: 80%;
+    color:white;
+    background-color: #000;
+    border: 3px solid #382418;
+    width: 27%;
+    margin: 5px 5px 3px;
+}
+
+.option a{
+    color: #90c040;
+}
+
+fieldset {
+    float: left;
+}
+
+
+/* mods */
+.text {
+    margin-top: 4px;
+}
+
+/* code of conduct */
+.coc {
+    background: url(../../img/mod/coc.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+.cocimg {
+    background: url(../../img/mod/cocimg.png) no-repeat;
+    margin-top: 4px;
+    width: 95px;
+    height: 65px;
+    float: left;
+}
+
+/* moderator guidelines */
+.mg {
+    background: url(../../img/mod/mg.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.mgimg {
+    background: url(../../img/mod/mgimg.png) no-repeat;
+    width: 95px;
+    height: 65px;
+    margin-top: 4px;
+    float: left;
+}
+
+/* pmod faq */
+.pfaq {
+    background: url(../../img/mod/pmfaq.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.pfaqimg {
+    background: url(../../img/mod/pmfaqimg.png) no-repeat;
+    width: 84px;
+    height: 71px;
+    margin-top: 4px;
+    float: left;
+}
+
+/* mod team */
+.mt {
+    background: url(../../img/mod/mt.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.mtimg {
+    background: url(../../img/mod/mtimg.png) no-repeat;
+    width: 84px;
+    height: 71px;
+    margin-top: 4px;
+    float: left;
+}
+
+/* recent reports */
+.recentrep {
+    background: url(../../img/mod/recentrep.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.recentrepimg {
+    background: url(../../img/mod/recentrepimg.png) no-repeat;
+    width: 84px;
+    height: 71px;
+    margin-top: 4px;
+    float: left;
+}
+
+
+/* submit query */
+.query {
+    background: url(../../img/mod/submitquery.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.queryimg {
+    background: url(../../img/mod/submitqueryimg.png) no-repeat;
+    width: 84px;
+    height: 71px;
+    margin-top: 4px;
+    float: left;
+}
+
+/* Player mod forum */
+.pmforum {
+    background: url(../../img/mod/pmforum.png) no-repeat;
+    width: 146px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.pmforumimg {
+    background: url(../../img/mod/pmforumimg.png) no-repeat;
+    width: 84px;
+    height: 71px;
+    margin-top: 4px;
+    float: left;
+}
