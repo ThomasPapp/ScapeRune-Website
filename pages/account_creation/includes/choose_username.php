@@ -13,7 +13,7 @@ if(count(get_included_files()) <= 1) {
     <table width="100%">
         <tbody>
         <tr>
-            <form action="../../account/creation/" method="POST">
+            <form action="?page=account_creation" method="POST">
                 <table width="100%" cellpadding="16">
                     <tbody>
                     <tr>

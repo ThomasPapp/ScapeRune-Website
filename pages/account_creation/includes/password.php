@@ -13,7 +13,7 @@ if(count(get_included_files()) <= 1) {
     <table width="100%">
         <tbody>
             <td style="text-align: justify; vertical-align: top;">
-                <form action="../../account/creation/" method="POST">
+                <form action="?page=account_creation" method="POST">
                     <ul><li><b>NEVER</b> give anyone your password, not even to <?php echo $name; ?> staff.</li>
                         <li><?php echo $name; ?> staff will never ask you for your password.</li>
                         <li>Passwords must be between 5 and 20 characters long. We recommend you use a mixture of numbers and letters in your

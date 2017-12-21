@@ -12,7 +12,7 @@ class CreationHandler {
     }
 
     public function validUsername($username) {
-        $this->session->getConnection()->query("SELECT * FROM accounts WHERE username = ? LIMIT 1", array($username), false);
+        $this->session->getConnection()->query("SELECT * FROM accounts WHERE username = ? LIMIT 1", array($username), true);
 
         if($this->session->getConnection()->getRowAmount() > 0) {
             return false;

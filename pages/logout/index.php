@@ -2,7 +2,7 @@
 /**
  * @author Thomas
  */
-require_once '../../secure/Config.php';
+require_once 'classes/secure/Config.php';
 
 // this is only used for localhost!
 if (isset($_COOKIE['account'])) {
@@ -16,5 +16,5 @@ if (isset($_SESSION['hash'])) {
     unset($_SESSION['hash']);
 }
 
-header('Location: ../../');
+header('Location: ?page=main');
 exit;

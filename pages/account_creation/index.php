@@ -3,13 +3,13 @@
  * @author Thomas
  */
 
-session_start();
+require 'classes/secure/SQLConnection.php';
+require 'classes/secure/Config.php';
+require 'classes/secure/session/Session.php';
 
-require '../../secure/SQLConnection.php';
-require '../../secure/Config.php';
-require '../../session/Session.php';
-require '../../account/Account.php';
-require '../../account/creation/CreationHandler.php';
+require 'classes/account/Account.php';
+
+require 'classes/account/creation/CreationHandler.php';
 
 $connection = new SQLConnection();
 
@@ -18,7 +18,7 @@ $account = new Account($session);
 $handler = new CreationHandler($session);
 
 if ($account->isLoggedIn()) {
-    $session->redirect('../../');
+    $session->redirect('?page=main');
     exit;
 }
 
@@ -26,41 +26,61 @@ $error_message = null;
 
 $stage = 0;
 
+$create = false;
+
 if(isset($_POST['age']) && isset($_POST['country'])) {
-    if($stage == 0 && !in_array($_POST['age'], array('Below 13', '13-18', '19-24', '25-30', '31-36', '36-39', '40+')) || !ctype_digit($_POST['country'])) {
+    if(!in_array($_POST['age'], array('Below 13', '13-18', '19-24', '25-30', '31-36', '36-39', '40+')) || !ctype_digit($_POST['country'])) {
         $error_message = 'Invalid age or country.</br></br> <input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
     } else {
-        $stage = 1;
         $_SESSION['age'] = $_POST['age'];
         $_SESSION['country'] = $_POST['country'];
     }
 }
 
 if (isset($_POST['username'])) {
-    if ($stage == 1 && !$handler->validUsername(trim($_POST['username']))) {
-        $error_message = 'This username is not available.</br></br> <input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
+    if (!$handler->validUsername(trim($_POST['username']))) {
+        $error_message = 'The username <span style="color: #ffbb22;">'. $_POST['username'] .'</span> is currently unavailable.</br></br> <input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
     } else {
-        $stage = 2;
         $_SESSION['username'] = $_POST['username'];
     }
 }
 
 if (isset($_POST['terms'])) {
-    $stage = 3;
+    $_SESSION['terms'] = true;
+}
+
+if (isset($_POST['terms_disagree'])) {
+    session_unset();
+    $session->redirect('../../');
+    exit;
 }
 
 if (isset($_POST['password']) && isset($_POST['password_confirm'])) {
     if ($_POST['password'] != $_POST['password_confirm']) {
-
+        $error_message = 'The passwords you have entered do not match.<br><br><input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
     } else {
-        $stage = 4;
-        $salt = substr(hash(sha256, sha1(time())), 10);
-        $password = $salt.hash(sha256, md5(sha1($_POST['password']))).substr($salt, 0, -51);
-        $username = $_SESSION['username'];
-        $session_hash = $handler->createAccount($_SESSION['age'], $_SESSION['country'], $_SESSION['username'], $password);
-        session_unset();
-        $_SESSION['hash'] = $session_hash;
+        $create = true;
     }
+}
+
+// set the stage
+if (isset($_SESSION['age']) && isset($_SESSION['country'])) {
+    $stage = 1;
+}
+if (isset($_SESSION['age']) && isset($_SESSION['country']) && isset($_SESSION['username'])) {
+    $stage = 2;
+}
+if (isset($_SESSION['age']) && isset($_SESSION['country']) && isset($_SESSION['username']) && isset($_SESSION['terms'])) {
+    $stage = 3;
+}
+if (isset($_SESSION['age']) && isset($_SESSION['country']) && isset($_SESSION['username']) && isset($_SESSION['terms']) && $create) {
+    $stage = 4;
+    $salt = substr(hash(sha256, sha1(time())), 10);
+    $password = $salt.hash(sha256, md5(sha1($_POST['password']))).substr($salt, 0, -51);
+    $username = $_SESSION['username'];
+    $session_hash = $handler->createAccount($_SESSION['age'], $_SESSION['country'], $_SESSION['username'], $password);
+    session_unset();
+    $_SESSION['hash'] = $session_hash;
 }
 
 $boxes = [
@@ -79,15 +99,15 @@ $boxes = [
     <meta name="MSSmartTagsPreventParsing" content="TRUE">
     <link rel="shortcut icon" href="../../img/favicon.ico" />
     <title><?php echo $title; ?></title>
-    <link href="../../css/basic-3.css" rel="stylesheet" type="text/css" media="all">
-    <link href="../../css/register-1.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/basic-3.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/register-1.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
     <div id="body">
         <div style="text-align: center; background: none;">
             <div class="titleframe e">
                 <b>Create account</b><br>
-                <a href="../../">Main Menu</a>
+                <a href="?page=main">Main Menu</a>
             </div>
         </div>
         <br>
@@ -124,19 +144,19 @@ $boxes = [
     <?php
         } else {
             if ($stage == 0) {
-                include_once '../../account/creation/includes/agelocation.php';
+                require 'includes/age_location.php';
             }
             if ($stage == 1) {
-                include_once '../../account/creation/includes/chooseusername.php';
+                require 'includes/choose_username.php';
             }
             else if ($stage == 2) {
-                include_once '../../account/creation/includes/termsandconditions.php';
+                require 'includes/terms_and_conditions.php';
             }
             else if ($stage == 3) {
-                include_once '../../account/creation/includes/password.php';
+                require 'includes/password.php';
             }
             else if ($stage == 4) {
-                include_once '../../account/creation/includes/finished.php';
+                require 'includes/finished.php';
             }
         }
     ?>

@@ -3,11 +3,40 @@
  * @author Thomas
  */
 
-require 'secure/Config.php';
+require 'classes/secure/Config.php';
 
 if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
-    header('Location: /');
+    header('Location: ?page=main');
     exit;
+}
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    require 'classes/secure/session/Session.php';
+    require 'classes/secure/SQLConnection.php';
+
+    $connection = new SQLConnection();
+
+    $session = new Session($connection);
+
+    // login forum details
+    $username = $_POST['username'];
+    $raw_password = $_POST['password'];
+    $password = hash(sha256, md5(sha1($raw_password)));
+
+    // the information from the database
+    $information = $connection->query("SELECT password FROM accounts WHERE username = ?", array($username), true);
+
+    // the password stored in the database
+    $database_password = substr(substr($information[0]['password'], 54), 0, -3);
+
+    if ($connection->getRowAmount() == 0 || $password != $database_password) {
+        $incorrect_login = true;
+        $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, date('M-d-Y'), $_SERVER['REMOTE_ADDR']), false);
+    } else {
+        $session->generateCookie($session_time, $domain, $username);
+        $session->redirect('?page=main');
+        exit;
+    }
 }
 
 ?>
@@ -29,7 +58,7 @@ if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
     <div style="text-align: center; background: none;">
         <div class="titleframe e">
             <b>Secure Login</b><br>
-            <a href="index.php" target="_self">Main Menu</a>
+            <a href="?page=main" target="_self">Main Menu</a>
         </div>
     </div>
     <img style="margin-top:-25px;" class="widescroll-top" src="img/scroll/backdrop_765_top.gif" alt="" width="765"
@@ -60,7 +89,24 @@ if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
                                 <div
                                     style="background-color:#3e434d; opacity: 0.5; -moz-opacity:0.5;height: 200px; width: 400px; position:absolute; left:7px; top:7px;z-index:0;filter:alpha(opacity=50);"></div>
                                 <div style="z-index:2; top:70px;left:40px;position:absolute;">
-                                    <form action="secure/login/loginrequest.php" method="post" autocomplete="off">
+                                    <?php
+                                        if (isset($incorrect_login)) {
+                                            ?>
+                                            <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);">
+                                                <tr>
+                                                    <td align="center" style="text-align: center">Incorrect login details.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td align="center">
+                                                        <input type="button" value="Back" onclick="window.location.href=window.location.href" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <?php
+                                        } else {
+                                            ?>
+                                    <form action="" method="post" autocomplete="off">
                                         <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);">
                                             <tr>
                                                 <td>ScapeRune username:</td>
@@ -77,6 +123,9 @@ if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
                                             </tr>
                                         </table>
                                     </form>
+                                        <?php
+                                        }
+                                    ?>
                                 </div>
                             </td>
                             <td style="position:absolute; left:407px; top:7px" height="200" width="7">
@@ -97,9 +146,9 @@ if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
                 <br> <br>
 
                 <div class="buttons">
-                    <a href="account/creation/" class="button" id="button-left"><span class="lev1"></span>Create a New
+                    <a href="?page=account_creation" class="button" id="button-left"><span class="lev1"></span>Create a New
                         Account!<br> Click Here!</a>
-                    <a href="../recover" class="button" id="button-right"><span class="lev1"></span>Lost
+                    <a href="?page=recover" class="button" id="button-right"><span class="lev1"></span>Lost
                         Your Password?<br> Click Here!</a>
                 </div>
             </div>

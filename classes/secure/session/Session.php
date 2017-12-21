@@ -38,7 +38,7 @@ class Session
         // this is only used for localhost!
         setcookie('account', $cookie_hash, time() + $session_time, '/');
 
-
+        // use this code for live website!
 //        setcookie('account', $cookie_hash, time() + $session_time, '/', $domain,true, true);
     }
 

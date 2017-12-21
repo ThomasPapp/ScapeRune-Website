@@ -22,9 +22,9 @@ class Account
         <span style="float: right;">
             <?php
                 if ($this->isLoggedIn()) {
-                    echo '<a href="../">Main Page</a> | <a href="secure/logout/">Logout</a>';
+                    echo '<a href="?page=main">Main Page</a> | <a href="?page=logout">Logout</a>';
                 } else {
-                    echo '<a href="../">Main Page</a> | <a href="loginforum.php">Login</a>';
+                    echo '<a href="?page=main">Main Page</a> | <a href="?page=login">Login</a>';
                 }
             ?>
         </span>
@@ -42,15 +42,15 @@ class Account
     }
 
     public function getDisplayName() {
-//        if ($this->display_name != null) {
-//            return $this->display_name;
-//        }
+        if ($this->display_name != null) {
+            return $this->display_name;
+        }
         $cookie = isset($_COOKIE['account']) ? $_COOKIE['account'] : (isset($_SESSION['hash']) ? $_SESSION['hash'] : null);
         if ($cookie == null) {
             return 'null';
         }
         $information = $this->session->getConnection()->query("SELECT display_name FROM accounts WHERE cookie = ?", array($cookie), true);
-        return $information[0]['display_name'];
+        return $this->display_name = $information[0]['display_name'];
     }
 
     public function isLoggedIn() {

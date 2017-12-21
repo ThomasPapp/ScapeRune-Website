@@ -14,7 +14,7 @@ if(count(get_included_files()) <= 1) {
         <tbody>
         <tr>
             <td style="text-align: justify; vertical-align: top;">
-                <form action="index.php" method="post">
+                <form action="?page=account_creation" method="post">
                     <table width="100%" cellpadding="5">
                         <tbody><tr>
                             <td align="center">

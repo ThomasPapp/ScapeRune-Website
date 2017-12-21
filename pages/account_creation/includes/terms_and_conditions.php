@@ -13,7 +13,7 @@ if(count(get_included_files()) <= 1) {
     <table width="100%">
         <tbody>
             <td style="text-align: justify; vertical-align: top;">
-                <form action="../../account/creation/" method="POST">
+                <form action="?page=account_creation" method="POST">
                     <p>The username <span style="color: #ffbb22;"><?php echo $_SESSION['username']; ?></span> is currently available To sign up to an account you must agree to our Terms and Conditions:</p>
 
                     <b>Terms and Conditions</b>
@@ -124,7 +124,7 @@ if(count(get_included_files()) <= 1) {
                         software, server emulators).  </p>
 
                     <center>
-                        <input value="I Agree" id="terms" name="terms" type="submit"> <input value="I Do Not Agree" onclick="window.location.href='../../'" type="button">
+                        <input value="I Agree" id="terms" name="terms" type="submit"> <input value="I Do Not Agree" id="terms_disagree" name="terms_disagree" type="submit">
                     </center>
                 </form>
             </td>

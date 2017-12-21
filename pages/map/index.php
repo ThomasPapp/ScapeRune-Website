@@ -7,8 +7,8 @@
     <title>Map</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Slabo 27px' rel='stylesheet'>
-    <link rel="stylesheet" href="stylesheets/leaflet.css">
-    <link rel="stylesheet" href="stylesheets/app.css">
+    <link rel="stylesheet" href="pages/map/stylesheets/leaflet.css">
+    <link rel="stylesheet" href="pages/map/stylesheets/app.css">
 
     <script src="js/leaflet.js"></script>
     <script src="js/app.js"></script>
@@ -61,7 +61,7 @@
 <!-- MAP -->
 <div id="map"></div>
 <script type="text/javascript">
-    var mapObject= 'images/map/tiles/{z}/{x}/{y}.png';
+    var mapObject= 'pages/map/images/map/tiles/{z}/{x}/{y}.png';
 
     var map = L.map('map', {
         minZoom: 3,
@@ -75,11 +75,11 @@
         contextmenuWidth: 140,
         contextmenuItems: [{
             text: 'Zoom In',
-            icon: 'images/zoom-in.png',
+            icon: 'pages/map/images/zoom-in.png',
             callback: zoomIn
         }, {
             text: 'Zoom Out',
-            icon: 'images/zoom-out.png',
+            icon: 'pages/map/images/zoom-out.png',
             callback: zoomOut
         }, '-', {
             text: 'Center Map',
