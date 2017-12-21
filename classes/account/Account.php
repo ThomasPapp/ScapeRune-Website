@@ -45,7 +45,7 @@ class Account
         if ($this->display_name != null) {
             return $this->display_name;
         }
-        $cookie = isset($_COOKIE['account']) ? $_COOKIE['account'] : (isset($_SESSION['hash']) ? $_SESSION['hash'] : null);
+        $cookie = isset($_SESSION['hash']) ? $_SESSION['hash'] : null;
         if ($cookie == null) {
             return 'null';
         }
@@ -54,7 +54,7 @@ class Account
     }
 
     public function isLoggedIn() {
-        return isset($_SESSION['hash']) || isset($_COOKIE['account']);
+        return isset($_SESSION['hash']);
     }
 
 }

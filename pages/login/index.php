@@ -5,7 +5,7 @@
 
 require 'classes/secure/Config.php';
 
-if (isset($_SESSION['hash']) || isset($_COOKIE['account'])) {
+if (isset($_SESSION['hash'])) {
     header('Location: ?page=main');
     exit;
 }
@@ -33,7 +33,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $incorrect_login = true;
         $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, date('M-d-Y'), $_SERVER['REMOTE_ADDR']), false);
     } else {
-        $session->generateCookie($session_time, $domain, $username);
+        $session->generateSessionHash($session_time, $domain, $username);
         $session->redirect('?page=main');
         exit;
     }

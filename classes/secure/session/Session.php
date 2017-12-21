@@ -22,21 +22,20 @@ class Session
         return $this->connection;
     }
 
-    public function generateCookie($session_time, $domain, $username) {
-        $cookie_hash = md5(time() . $this->generateRandomString());
+    public function generateSessionHash($session_time, $domain, $username) {
+        $session_hash = md5(time() . $this->generateRandomString());
 
         // make sure there are no existing cookies with this hash
-        $this->connection->query("SELECT * FROM accounts WHERE cookie = ?", array($cookie_hash), false);
+        $this->connection->query("SELECT * FROM accounts WHERE cookie = ?", array($session_hash), false);
         if ($this->connection->getRowAmount() != 0) {
-            $this->generateCookie($session_time, $domain, $username);
+            $this->generateSessionHash($session_time, $domain, $username);
             return;
         }
 
         // update the cookie in the database
-        $this->connection->query("UPDATE accounts SET cookie = ? WHERE username = ? LIMIT 1", array($cookie_hash, $username), false);
+        $this->connection->query("UPDATE accounts SET cookie = ? WHERE username = ? LIMIT 1", array($session_hash, $username), false);
 
-        // this is only used for localhost!
-        setcookie('account', $cookie_hash, time() + $session_time, '/');
+        $_SESSION['hash'] = $session_hash;
 
         // use this code for live website!
 //        setcookie('account', $cookie_hash, time() + $session_time, '/', $domain,true, true);
