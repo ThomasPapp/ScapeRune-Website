@@ -88,16 +88,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                             <td height="200" width="400">
                                 <div
                                     style="background-color:#3e434d; opacity: 0.5; -moz-opacity:0.5;height: 200px; width: 400px; position:absolute; left:7px; top:7px;z-index:0;filter:alpha(opacity=50);"></div>
-                                <div style="z-index:2; top:70px;left:40px;position:absolute;">
+                                <div style="z-index:2; top:70px;position:absolute;width:100%;">
                                     <?php
                                         if (isset($incorrect_login)) {
                                             ?>
-                                            <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);">
+                                            <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);width:100%;">
                                                 <tr>
-                                                    <td align="center" style="text-align: center">Incorrect login details.</td>
+                                                    <td align="center" style="text-align: center;width:100%;">Incorrect login details.</td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
                                                     <td align="center">
                                                         <input type="button" value="Back" onclick="window.location.href=window.location.href" />
                                                     </td>
