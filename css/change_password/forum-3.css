@@ -5,7 +5,7 @@
 }
 
 #aligncenter {
-  float: center;
+  /*float: center;*/
   width:33.33333%;
   text-align:center;
 }
@@ -34,6 +34,7 @@ INPUT,SELECT {
 	height: 19px;
 	border: 2px inset #444;
 	border-color: #f5f5f5;
+}
 /*}*/
 
 #picker {
@@ -366,7 +367,7 @@ UL.flat LI {
 #uid {
 	text-align: center;
 	color: #888;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 }
 
 .msgplace {
