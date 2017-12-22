@@ -3,7 +3,7 @@
  * @author Thomas
  */
 if (count(get_required_files()) <= 1) {
-    header("Location: /");
+    header("Location: ?page=main");
     exit;
 }
 
@@ -17,6 +17,8 @@ $connection = new SQLConnection();
 
 $session = new Session($connection);
 $account = new Account($session);
+
+$online = $account->isLoggedIn();
 ?>
 <head>
     <meta name="MSSmartTagsPreventParsing" content="TRUE">
@@ -98,22 +100,28 @@ $account = new Account($session);
         <fieldset class="menu web">
             <legend>Website Features</legend>
             <ul>
-                <li class="i-world"><a href="/map">World map</a></li>
+                <li class="i-world"><a href="map/">World map</a></li>
                 <li class="i-score"><a href="/hiscores">Hiscores</a></li>
                 <li class="i-forum"><a href="/forums">Forums</a></li>
                 <li class="i-files"><a href="/download.php">Downloads</a></li>
             </ul>
         </fieldset>
 
-        <fieldset class="menu acc">
-            <legend>Account Management</legend>
-            <ul>
-                <li style="white-space: nowrap" class="i-msg"><a href="msgcenter/index">Read your messages from <?php echo $name; ?></li>
-                <li class="i-pw"><a href="account/change_password">Change your password</a></li>
-                <li class="i-recset"><a href="/account/add_recoveries">Set new recovery questions</a></li>
-                <li class="i-reccan"><a href="/account/cancel_recoveries">Cancel recovery questions</a></li>
-            </ul>
-        </fieldset>
+        <?php
+            if ($online) {
+                ?>
+                <fieldset class="menu acc">
+                    <legend>Account Management</legend>
+                    <ul>
+                        <li style="white-space: nowrap" class="i-msg"><a href="msgcenter/index">Read your messages from <?php echo $name; ?></li>
+                        <li class="i-pw"><a href="?page=change_password">Change your password</a></li>
+                        <li class="i-recset"><a href="?page=set_recovery">Set new recovery questions</a></li>
+                        <li class="i-reccan"><a href="/account/cancel_recoveries">Cancel recovery questions</a></li>
+                    </ul>
+                </fieldset>
+                <?php
+            }
+        ?>
 
         <fieldset class="menu rec">
             <legend>Account Recovery</legend>

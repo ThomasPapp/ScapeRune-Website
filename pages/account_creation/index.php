@@ -3,6 +3,11 @@
  * @author Thomas
  */
 
+if (count(get_required_files()) <= 1) {
+    header("Location: ?page=main");
+    exit;
+}
+
 require 'classes/secure/SQLConnection.php';
 require 'classes/secure/Config.php';
 require 'classes/secure/session/Session.php';
@@ -97,7 +102,7 @@ $boxes = [
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta name="MSSmartTagsPreventParsing" content="TRUE">
-    <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <link rel="shortcut icon" href="img/favicon.ico" />
     <title><?php echo $title; ?></title>
     <link href="css/basic-3.css" rel="stylesheet" type="text/css" media="all">
     <link href="css/register-1.css" rel="stylesheet" type="text/css" media="all">

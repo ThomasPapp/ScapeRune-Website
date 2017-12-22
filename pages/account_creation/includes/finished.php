@@ -3,8 +3,8 @@
  * @author Thomas
  */
 
-if(count(get_included_files()) <= 1) {
-    header('Location: ../../../account/creation/');
+if (count(get_required_files()) <= 1) {
+    header("Location: ?page=main");
     exit;
 }
 ?>
@@ -23,7 +23,7 @@ if(count(get_included_files()) <= 1) {
             </ul>
             <center>
                 Click below to start playing:
-                <div class="buttons"><a href="../../" class="button" id="playbutton"><span class="lev1"></span>Play <?php echo $name; ?></a></div>
+                <div class="buttons"><a href="?page=main" class="button" id="playbutton"><span class="lev1"></span>Play <?php echo $name; ?></a></div>
             </center>
         </td>
     </table>

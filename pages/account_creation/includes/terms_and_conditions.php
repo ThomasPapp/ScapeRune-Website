@@ -3,8 +3,8 @@
  * @author Thomas
  */
 
-if(count(get_included_files()) <= 1) {
-    header('Location: ../../../account/creation/');
+if (count(get_required_files()) <= 1) {
+    header("Location: ?page=main");
     exit;
 }
 

@@ -8,6 +8,9 @@ define("IN_SCRIPT", true);
 // The domain of the website
 $domain = 'scaperune.info';
 
+// The domain of the website in uppercase
+$domain_uc = 'ScapeRune.info';
+
 // The name of the website
 $name = 'ScapeRune';
 

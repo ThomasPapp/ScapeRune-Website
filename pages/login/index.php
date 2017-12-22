@@ -3,6 +3,11 @@
  * @author Thomas
  */
 
+if (count(get_required_files()) <= 1) {
+    header("Location: ?page=main");
+    exit;
+}
+
 require 'classes/secure/Config.php';
 
 if (isset($_SESSION['hash'])) {
@@ -34,7 +39,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, date('M-d-Y'), $_SERVER['REMOTE_ADDR']), false);
     } else {
         $session->generateSessionHash($session_time, $domain, $username);
-        $session->redirect('?page=main');
+        require 'includes/redirect.php';
+//        $session->redirect('?page=main');
         exit;
     }
 }
@@ -45,10 +51,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta name="MSSmartTagsPreventParsing" content="TRUE">
-    <title>ScapeRune - the massive online adventure game</title>
+    <title><?php echo $title; ?></title>
     <link rel="shortcut icon" href="img/favicon.ico"/>
     <link href="css/basic-3.css" rel="stylesheet" type="text/css" media="all">
-
     <link href="css/extra-1.css" rel="stylesheet" type="text/css" media="all">
     <link href="css/loginforum.css" rel="stylesheet" type="text/css" media="all">
 </head>
