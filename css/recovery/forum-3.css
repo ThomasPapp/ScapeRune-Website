@@ -5,7 +5,7 @@
 }
 
 #aligncenter {
-  float: center;
+  float: inherit;
   width:33.33333%;
   text-align:center;
 }

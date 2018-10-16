@@ -18,6 +18,9 @@ if (count(get_required_files()) <= 1 || !((isset($valid) && isset($matches)) && 
             <br>
             <br>
             Please remember that you should <b>never</b> disclose your password to <b>anyone</b> - members of <?php echo $name; ?> staff will <b>never</b> ask for your password in game or via email.
+            <br>
+            <br>
+            Click <a href="?page=main">here</a> to return to the main page.
         </td>
     </tr>
 </table>

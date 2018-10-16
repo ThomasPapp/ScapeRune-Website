@@ -12,7 +12,7 @@ $possible_questions = [
     1 => "What was your first teachers name?",
     2 => "What is your fathers middle name?",
     3 => "What is your mothers middle name?",
-    4 => "What is your favorite vacation spot?"
+    4 => "What is your favorite vacation spot?",
 ];
 
 $questions = array_rand($possible_questions, 5);
@@ -58,7 +58,7 @@ $questions = array_rand($possible_questions, 5);
                 Question:
                 &#8195;<input id="textbox3" value="'. $possible_questions[$questions[$i]] .'" type="text" readonly> 
                 <input type="hidden" name="question'. $i .'" value="'. $questions[$i] .'">
-                <input id="button" value="New Question" type="submit">
+                <input id="button" value="New Question" type="button">
                 <br>
                 <br>Answer:
                 <div style="margin-top:-18px;">&#8195;&#8195;&#8195;&#8195;&#8195;&nbsp;&nbsp;<input id="textbox" name="answer'. $i .'" type="password" required><br></div>

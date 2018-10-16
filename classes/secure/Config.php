@@ -18,7 +18,4 @@ $name = 'ScapeRune';
 $title = 'ScapeRune - the massive online adventure game';
 
 // The website footer
-$footer = 'This website and its contents are copyright &copy; 2015 - 2017 <a href="../">ScapeRune</a>.<br/>Use of this website is subject to our <a href="../tos">Terms Of Service</a>.';
-
-// The amount of time that a cookie will last
-$session_time = 3600; // 3600 seconds = 1 hour
+$footer = 'This website and its contents are copyright &copy; 2015 - 2018 <a href="../">ScapeRune</a>.<br/>Use of this website is subject to our <a href="../tos">Terms Of Service</a>.';

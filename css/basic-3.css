@@ -73,7 +73,7 @@ div.horizontalscroll { width: 765px; height: 159px; overflow: hidden; margin: 5p
 div.horizontalscroll-content { margin: 15px 40px; color: #000000; position: relative;}
 div.widescroll { width: 735px; background-color: #C2AB79; margin: 0 10px 0 15px; position: relative;}
 div.widescroll-bgimg { width: 745px; position: relative; margin: 0 -5px; background-image: url("../img/scroll/backdrop_745.gif"); background-repeat: repeat-y;}
-div.widescroll-content { padding: 25px 10px; color: #000000; position: relative; margin: 0 5px;}
+div.widescroll-content { padding: 25px 10px; color: #000000; position: relative; margin: 0 5px; }
 img.widescroll-top { position: relative; top: 25px; padding:0; margin: 0; z-index: 100; display: block;}
 img.widescroll-bottom { position: relative; padding:0; margin: 0; top: -25px; display: block;}
 div.widescroll-content a, div.horizontalscroll-content a, div.narrowscroll-content a {color: #7B4F17; font-weight: bold; }

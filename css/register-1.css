@@ -9,6 +9,7 @@
 #reg td.box {
 	background-color: #382418;
 	border: 1px solid black;
+	border-bottom: 2px inset #382418;
 	color: #8B8589;
 }
 #reg td.cur {
@@ -19,6 +20,7 @@
 #reg td.fin {
 	background-color: #382418;
 	border: 1px solid black;
+	border-bottom: 2px inset #382418;
 	color: #90c040;
 }
 .formError {

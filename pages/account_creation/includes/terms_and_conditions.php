@@ -14,7 +14,7 @@ if (count(get_required_files()) <= 1) {
         <tbody>
             <td style="text-align: justify; vertical-align: top;">
                 <form action="?page=account_creation" method="POST">
-                    <p>The username <span style="color: #ffbb22;"><?php echo $_SESSION['username']; ?></span> is currently available To sign up to an account you must agree to our Terms and Conditions:</p>
+                    <p>The email <span style="color: #ffbb22;"><?php echo $_SESSION['email']; ?></span> and username <span style="color: #ffbb22;"><?php echo $_SESSION['username']; ?></span> is currently available. To sign up to an account you must agree to our Terms and Conditions:</p>
 
                     <b>Terms and Conditions</b>
                     <br>
@@ -22,7 +22,7 @@ if (count(get_required_files()) <= 1) {
                     <p>
                         <u>Username</u><br>
                         You must not choose a Username that infringes the rights of any third
-                        party, impersonates Jagex staff of other users, or which is deliberately
+                        party, impersonates ScapeRune staff of other users, or which is deliberately
                         confusing or which is offensive, racist, obscene or otherwise unlawful.
                         We reserve the right to change any Username for any reason.</p>
 
@@ -30,27 +30,27 @@ if (count(get_required_files()) <= 1) {
                         <u>Password</u><br>
                         You agree to keep your Password safe at all times and not to disclose it
                         to any other person. You must ensure that your computer is kept free of
-                        viruses and Trojans to ensure the safety of your password. Real Jagex
+                        viruses and Trojans to ensure the safety of your password. Real ScapeRune
                         staff will never ask you for your current password.</p>
 
-                    <p>
-                        <u>Subscription</u><br>
-                        Some contents and/or services on this website are subscription-based. If
-                        you elect to purchase subscription-based content/services and transmit
-                        to us a subscription purchase request, you warrant that all the
-                        information that you submit is true and accurate (including without
-                        limitation your credit card number and expiration date, and other
-                        payment details), and you agree to pay all subscription fees you incur
-                        including all applicable taxes. </p>
+<!--                    <p>-->
+<!--                        <u>Subscription</u><br>-->
+<!--                        Some contents and/or services on this website are subscription-based. If-->
+<!--                        you elect to purchase subscription-based content/services and transmit-->
+<!--                        to us a subscription purchase request, you warrant that all the-->
+<!--                        information that you submit is true and accurate (including without-->
+<!--                        limitation your credit card number and expiration date, and other-->
+<!--                        payment details), and you agree to pay all subscription fees you incur-->
+<!--                        including all applicable taxes. </p>-->
 
-                    <p>
-                        <u>RuneScape Account</u><br>
-                        You agree that your RuneScape character and account and items are and
-                        remain the property of Jagex. You may not sell, transfer or lend your
+<!--                    <p>-->
+                        <u>ScapeRune Account</u><br>
+                        You agree that your ScapeRune character and account and items are and
+                        remain the property of ScapeRune. You may not sell, transfer or lend your
                         account to anyone else, or permit anyone else to use your account, and
                         you may not accept an account which anybody else offers you.</p>
 
-                    <p>You may create more than one RuneScape account, but if you do, you
+                    <p>You may create more than one ScapeRune account, but if you do, you
                         may not log into more than one account at any time, and they must not
                         interact with each other in any way. Using one account to drop objects
                         for transfer to another of your accounts is not allowed.</p>
@@ -98,12 +98,10 @@ if (count(get_required_files()) <= 1) {
 
                     <p>
                         <u>Cheating</u><br>
-                        You must not exploit any cheats or errors which you find in the
-                        Multiplayer Games or RuneScape. Any cheats or errors which you discover
+                        You must not exploit any cheats or errors which you find in ScapeRune. Any cheats or errors which you discover
                         must be reported immediately to us.</p>
 
-                    <p>You must not attempt to use other programs in conjunction with the
-                        Multiplayer Games or RuneScape to give yourself an unfair advantage. You
+                    <p>You must not attempt to use other programs in conjunction with ScapeRune to give yourself an unfair advantage. You
                         may not use any bots or macros to control your character for you. When
                         you are not playing a Game you must logout. You may not circumvent any
                         of our mechanisms designed to logout inactive users automatically.</p>
@@ -116,9 +114,9 @@ if (count(get_required_files()) <= 1) {
 
                     <p>
                         <u>Provision of service</u><br>
-                        You must not reverse-engineer, decompile or modify the RuneScape client
+                        You must not reverse-engineer, decompile or modify the ScapeRune client
                         in any way. You must not use a modified/customised version of the
-                        RuneScape client. You must not create or provide any other means by
+                        ScapeRune client. You must not create or provide any other means by
                         which any of the Games provided by this web site may be played by others
                         (including, without limitation, replacement or modified client/server
                         software, server emulators).  </p>

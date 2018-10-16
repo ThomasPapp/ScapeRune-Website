@@ -42,11 +42,16 @@ if(isset($_POST['age']) && isset($_POST['country'])) {
     }
 }
 
-if (isset($_POST['username'])) {
-    if (!$handler->validUsername(trim($_POST['username']))) {
-        $error_message = 'The username <span style="color: #ffbb22;">'. $_POST['username'] .'</span> is currently unavailable.</br></br> <input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
-    } else {
-        $_SESSION['username'] = $_POST['username'];
+if (isset($_POST['email']) && isset($_POST['username'])) {
+    if (!$handler->validEmail($_POST['email']))
+        $error_message = 'The email <span style="color: #ffbb22;">'. $_POST['email'] .'</span> is currently unavailable.<br><br><input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
+    else {
+        if (!$handler->validUsername(trim($_POST['username']))) {
+            $error_message = 'The username <span style="color: #ffbb22;">'. $_POST['username'] .'</span> is currently unavailable.</br></br> <input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
+        } else {
+            $_SESSION['email'] = trim($_POST['email']);
+            $_SESSION['username'] = trim($_POST['username']);
+        }
     }
 }
 
@@ -56,11 +61,32 @@ if (isset($_POST['terms'])) {
 
 if (isset($_POST['terms_disagree'])) {
     session_unset();
-    $session->redirect('../../');
+    $session->redirect('?page=main');
     exit;
 }
 
-if (isset($_POST['password']) && isset($_POST['password_confirm'])) {
+// uncomment the below code for the live version!
+if (/*$_SERVER["REQUEST_METHOD"] == 'POST' &&*/ isset($_POST['password']) && isset($_POST['password_confirm'])) {
+
+//    $captcha_token = $_POST['token'];
+//    $captcha_secret = '6LcokGkUAAAAACtUjer9lRFVaVIETJzJFsf5-8c7';
+//    $captcha_action = $_POST['action'];
+//
+//    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $captcha_secret . '&response=' . $captcha_token);
+//    $responseData = json_decode($verifyResponse);
+//
+//    if( !( $responseData->success  && ( $responseData->action == $captcha_action ) ) ) {
+//        session_unset();
+//        session_destroy();
+//        header("Location: ?page=main"); // captcha check failed
+//        exit;
+//    } else if( $responseData->score < 0.5 ) {
+//        session_unset();
+//        session_destroy();
+//        header("Location: ?page=main"); // probably a bot
+//        exit;
+//    }
+
     if ($_POST['password'] != $_POST['password_confirm']) {
         $error_message = 'The passwords you have entered do not match.<br><br><input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
     } else {
@@ -83,7 +109,8 @@ if (isset($_SESSION['age']) && isset($_SESSION['country']) && isset($_SESSION['u
     $salt = substr(hash(sha256, sha1(time())), 10);
     $password = $salt.hash(sha256, md5(sha1($_POST['password']))).substr($salt, 0, -51);
     $username = $_SESSION['username'];
-    $session_hash = $handler->createAccount($_SESSION['age'], $_SESSION['country'], $_SESSION['username'], $password);
+    $email = $_SESSION['email'];
+    $session_hash = $handler->createAccount($_SESSION['age'], $_SESSION['country'], $_SESSION['username'], $email, $password);
     session_unset();
     $_SESSION['hash'] = $session_hash;
 }
@@ -106,6 +133,10 @@ $boxes = [
     <title><?php echo $title; ?></title>
     <link href="css/basic-3.css" rel="stylesheet" type="text/css" media="all">
     <link href="css/register-1.css" rel="stylesheet" type="text/css" media="all">
+<!--    uncomment the below code for the live version! -->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--    <script src='https://www.google.com/recaptcha/api.js?render=6LcokGkUAAAAAIo1z0lyZ-CO-X0FIy8_5v9ulfTL'></script>-->
+<!--    <script src="js/additions.js"></script>-->
 </head>
 <body>
     <div id="body">
@@ -123,7 +154,7 @@ $boxes = [
             <tbody><tr>
                 <?php
                     echo '<td id="ageReg" class="'. $boxes['age_loc'] .'">Indicate Age and Location</td>';
-                    echo '<td id="usernameReg" class="'. $boxes['username'] .'">Choose a Username</td>';
+                    echo '<td id="usernameReg" class="'. $boxes['username'] .'">Choose an Email and Username</td>';
                     echo '<td id="termsReg" class="'. $boxes['terms'] .'">Terms and Conditions</td>';
                     echo '<td id="passwordReg" class="'. $boxes['password'] .'">Choose a Password</td>';
                     echo '<td id="finishReg" class="'. $boxes['finish'] .'">Finish</td>';
@@ -152,7 +183,7 @@ $boxes = [
                 require 'includes/age_location.php';
             }
             if ($stage == 1) {
-                require 'includes/choose_username.php';
+                require 'includes/choose_email_and_username.php';
             }
             else if ($stage == 2) {
                 require 'includes/terms_and_conditions.php';

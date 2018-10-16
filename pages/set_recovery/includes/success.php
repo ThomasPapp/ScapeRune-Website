@@ -17,6 +17,10 @@ if (!$update) {
     $connection->query("INSERT INTO recovery_questions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($id, $submitted_questions[0], $submitted_questions[1], $submitted_questions[2], $submitted_questions[3], $submitted_questions[4],
         $submitted_answers[0], $submitted_answers[1], $submitted_answers[2], $submitted_answers[3], $submitted_answers[4]), false);
 }
+else {
+    $connection->query("INSERT INTO pending_recovery_questions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($id, $submitted_questions[0], $submitted_questions[1], $submitted_questions[2], $submitted_questions[3], $submitted_questions[4],
+        $submitted_answers[0], $submitted_answers[1], $submitted_answers[2], $submitted_answers[3], $submitted_answers[4], date("M-d-Y", strtotime("+2 week"))), false);
+}
 ?>
 <td>
     <?php
@@ -34,6 +38,9 @@ if (!$update) {
                 <br>
 
                 Please remember that you should <b>never</b> disclose your recovery questions or answers to <b>anyone</b> - members of <?php echo $name; ?> staff will <b>never</b> ask for your details in game or via email.
+                <br>
+                <br>
+                Click <a href="?page-main">here</a> to return to the main page.
             </center>
             <?php
         } else {
@@ -48,6 +55,9 @@ if (!$update) {
                 <br>
 
                 Please remember that you should <b>never</b> disclose your recovery questions or answers to <b>anyone</b> - members of <?php echo $name; ?> staff will <b>never</b> ask for your details in game or via email.
+                <br>
+                <br>
+                Click <a href="?page-main">here</a> to return to the main page.
             </center>
             <?php
         }

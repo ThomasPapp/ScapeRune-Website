@@ -13,7 +13,9 @@ if (count(get_required_files()) <= 1) {
     <table width="100%">
         <tbody>
             <td style="text-align: justify; vertical-align: top;">
-                <form action="?page=account_creation" method="POST">
+                <form action="?page=account_creation" method="post">
+<!--                    uncomment the below code for the live version! -->
+<!--                <form action="?page=account_creation" method="post" class="verify-form" data-action-name="verify_creation">-->
                     <ul><li><b>NEVER</b> give anyone your password, not even to <?php echo $name; ?> staff.</li>
                         <li><?php echo $name; ?> staff will never ask you for your password.</li>
                         <li>Passwords must be between 5 and 20 characters long. We recommend you use a mixture of numbers and letters in your
@@ -23,6 +25,14 @@ if (count(get_required_files()) <= 1) {
                     <center>
                         <table>
                             <tbody>
+                                <tr>
+                                    <td align="right">
+                                        Desired Email:
+                                    </td>
+                                    <td>
+                                        <?php echo $_SESSION['email']; ?> (<a href="">Change</a>)
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td align="right">
                                         Desired Username:

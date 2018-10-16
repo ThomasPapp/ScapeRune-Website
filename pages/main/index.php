@@ -12,13 +12,19 @@ require 'classes/secure/Config.php';
 require 'classes/secure/session/Session.php';
 
 require 'classes/account/Account.php';
+require 'classes/news/NewsArticleHandler.php';
 
 $connection = new SQLConnection();
 
 $session = new Session($connection);
 $account = new Account($session);
+$article_handler = new NewsArticleHandler($session);
 
 $online = $account->isLoggedIn();
+
+$amount = $session->getUserAmount();
+
+$articles = $article_handler->getArticles(5);
 ?>
 <head>
     <meta name="MSSmartTagsPreventParsing" content="TRUE">
@@ -43,8 +49,10 @@ $online = $account->isLoggedIn();
 
             </table>
             <?php
-            $amount = 0;
-            echo 'There are currently '. $amount ." people playing!";
+                // TODO: Enable this once live!
+                //echo 'There are currently '. $amount ." people playing!";
+
+                echo 'There are currently '. $amount .' '. ($amount == 1 ? 'person' : 'people') .' registered!';
             ?>
         </div>
     </div>
@@ -54,7 +62,7 @@ $online = $account->isLoggedIn();
             <legend><?php echo $name; ?></legend>
             <ul>
                 <li class="i-create"><a href="?page=account_creation">Create a free account (New user)</a></li>
-                <li class="i-play"><a href="..">Play RuneScape (Existing user)</a></li>
+                <li class="i-play"><a href="..">Play ScapeRune (Existing user)</a></li>
                 <li class="i-screen"><a href="..">View in-game screenshots</a></li>
                 <li class="i-youtube"><a style="margin-left: 3pt;" href="https://www.youtube.com/channel/UCYXUtjB7bO_QWJKYImXJorA" target="_blank">ScapeRune Youtube</a></li>
                 <li class="i-disc"><a style="margin-left: 1.5pt" href="https://discord.gg/YmbBp8U" target='_blank'>Discord Channel</a></li>
@@ -97,6 +105,21 @@ $online = $account->isLoggedIn();
             </ul>
         </fieldset>
 
+        <?php
+
+        if ($account->isAdmin()) {
+            ?>
+            <fieldset class="menu web">
+                <legend>Administrative</legend>
+                <ul>
+                    <li class="i-crown"><a href="?page=admin_cp">Admin Control Panel</a></li>
+                </ul>
+            </fieldset>
+            <?php
+        }
+
+        ?>
+
         <fieldset class="menu web">
             <legend>Website Features</legend>
             <ul>
@@ -116,7 +139,7 @@ $online = $account->isLoggedIn();
                         <li style="white-space: nowrap" class="i-msg"><a href="msgcenter/index">Read your messages from <?php echo $name; ?></li>
                         <li class="i-pw"><a href="?page=change_password">Change your password</a></li>
                         <li class="i-recset"><a href="?page=set_recovery">Set new recovery questions</a></li>
-                        <li class="i-reccan"><a href="/account/cancel_recoveries">Cancel recovery questions</a></li>
+                        <li class="i-reccan"><a href="?page=cancel_recovery">Cancel recovery questions</a></li>
                     </ul>
                 </fieldset>
                 <?php
@@ -126,8 +149,8 @@ $online = $account->isLoggedIn();
         <fieldset class="menu rec">
             <legend>Account Recovery</legend>
             <ul>
-                <li class="i-rec"><a href="">Recover a lost password</a></li>
-                <li class="i-rec"><a href="">Recover a locked account</a></li>
+                <li class="i-rec"><a href="?page=recover">Recover a lost password</a></li>
+                <li class="i-rec"><a href="?page=recover">Recover a locked account</a></li>
                 <li class="i-track"><a href="">Track a recovery request</a></li>
                 <li class="i-appeal"><a href="">Appeal an Offence/Ban</a></li>
             </ul>
@@ -146,8 +169,10 @@ $online = $account->isLoggedIn();
     <div class="newscontainer">
         <div class="buttons">
             <a href="?page=account_creation" class="button" id="button-left"><span class="create"></span><br style="line-height: 200%">Create a free account<br>(New user)</a>
-            <a href="" class="button" id="button-right"><span class="play"></span><br style="line-height: 200%">Play ScapeRune <?php echo $name; ?><br>(Existing user)</a>
+            <a href="" class="button" id="button-right"><span class="play"></span><br style="line-height: 200%">Play <?php echo $name; ?><br>(Existing user)</a>
         </div>
+
+        <?php $article_handler->displayRecent(); ?>
     </div>
 
 </div>

@@ -11,6 +11,15 @@ class CreationHandler {
         $this->session = $session;
     }
 
+    public function validEmail($email) {
+        $this->session->getConnection()->query("SELECT * FROM accounts WHERE email = ? LIMIT 1", array($email), true);
+
+        if($this->session->getConnection()->getRowAmount() > 0)
+            return false;
+
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
     public function validUsername($username) {
         $this->session->getConnection()->query("SELECT * FROM accounts WHERE username = ? LIMIT 1", array($username), true);
 
@@ -43,8 +52,8 @@ class CreationHandler {
     private function generateSessionHash() {
         $hash = md5(time() . $this->generateRandomString());
 
-        // make sure there are no existing cookies with this hash
-        $this->session->getConnection()->query("SELECT * FROM accounts WHERE cookie = ?", array($hash), false);
+        // make sure there are no existing sessions with this hash
+        $this->session->getConnection()->query("SELECT * FROM accounts WHERE session_hash = ?", array($hash), false);
         if ($this->session->getConnection()->getRowAmount() != 0) {
             return $this->generateSessionHash();
         }
@@ -61,9 +70,10 @@ class CreationHandler {
         return $randomString;
     }
 
-    public function createAccount($age, $country, $username, $password) {
+    public function createAccount($age, $country, $username, $email, $password) {
         $session_hash = $this->generateSessionHash();
-        $this->session->getConnection()->query("INSERT INTO accounts VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($username, $username, $password, $age, $country, $_SERVER['REMOTE_ADDR'], date('M-d-Y'), $_SERVER['REMOTE_ADDR'], time(), $session_hash, 0), false);
+        $this->session->getConnection()->query("INSERT INTO accounts VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            array($username, $username, $email, $password, 0, $age, $country, $_SERVER['REMOTE_ADDR'], date('M-d-Y'), $_SERVER['REMOTE_ADDR'], time(), $session_hash), false);
         return $session_hash;
     }
 

@@ -31,6 +31,11 @@ if (isset($_POST['password'])) {
     // now check their if the password submitted is valid
     $valid = $account->isValidPassword($_POST['password']);
 
+    $connection->query("SELECT * FROM pending_recovery_questions WHERE id = ?", array($account->getId()), false);
+
+    // are there questions already pending?
+    $pending = $connection->getRowAmount() > 0;
+
     $submitted_questions = [
         0 => $_POST['question0'],
         1 => $_POST['question1'],
@@ -72,7 +77,10 @@ if (isset($_POST['password'])) {
                                 if (!$valid) {
                                     require 'includes/invalid_password.php';
                                 } else {
-                                    require 'includes/success.php';
+                                    if ($pending)
+                                        require 'includes/already_pending.php';
+                                    else
+                                        require 'includes/success.php';
                                 }
                             }
                         }

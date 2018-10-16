@@ -31,17 +31,30 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     // the information from the database
     $information = $connection->query("SELECT password FROM accounts WHERE username = ?", array($username), true);
 
-    // the password stored in the database
-    $database_password = substr(substr($information[0]['password'], 54), 0, -3);
-
-    if ($connection->getRowAmount() == 0 || $password != $database_password) {
+    // no such account
+    if ($connection->getRowAmount() == 0) {
         $incorrect_login = true;
-        $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, date('M-d-Y'), $_SERVER['REMOTE_ADDR']), false);
     } else {
-        $session->generateSessionHash($session_time, $domain, $username);
-        require 'includes/redirect.php';
-//        $session->redirect('?page=main');
-        exit;
+
+        // Check if the user doesn't have 3 failed logins in the past 15 minutes
+        if(!$connection->checkBruteLogin( $username )) {
+
+            // the password stored in the database
+            $database_password = substr(substr($information[0]['password'], 54), 0, -3);
+
+            if ($password != $database_password) {
+                $incorrect_login = true;
+                $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, time(), $_SERVER['REMOTE_ADDR']), false);
+            } else {
+                $session->generateSessionHash($username);
+                require 'includes/redirect.php';
+                exit;
+            }
+
+        } else {
+            $locked = true;
+        }
+
     }
 }
 
@@ -107,6 +120,23 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                                                     </td>
                                                 </tr>
                                             </table>
+                                            <?php
+                                        }
+
+                                        else if (isset($locked)) {
+                                          ?>
+
+                                            <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);width:100%;">
+                                                <tr>
+                                                    <td align="center" style="text-align: center;width:100%;">Your account has been temporarily locked... Try again in 15 minutes.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center">
+                                                        <input type="button" value="Back" onclick="window.location.href=window.location.href" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+
                                             <?php
                                         } else {
                                             ?>

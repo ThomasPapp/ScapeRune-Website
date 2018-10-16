@@ -49,24 +49,24 @@ class Account
         if ($this->display_name != null) {
             return $this->display_name;
         }
-        $cookie = isset($_SESSION['hash']) ? $_SESSION['hash'] : null;
-        if ($cookie == null) {
+        $session_hash = isset($_SESSION['hash']) ? $_SESSION['hash'] : null;
+        if ($session_hash == null) {
             return 'null';
         }
-        $information = $this->session->getConnection()->query("SELECT display_name FROM accounts WHERE cookie = ?", array($cookie), true);
+        $information = $this->session->getConnection()->query("SELECT display_name FROM accounts WHERE session_hash = ?", array($session_hash), true);
         return $this->display_name = $information[0]['display_name'];
     }
 
     public function isValidPassword($raw_password) {
         $password = hash(sha256, md5(sha1($raw_password)));
 
-        $cookie = isset($_SESSION['hash']) ? $_SESSION['hash'] : null;
-        if ($cookie == null) {
+        $session_hash = isset($_SESSION['hash']) ? $_SESSION['hash'] : null;
+        if ($session_hash == null) {
             return false;
         }
 
         // the information from the database
-        $information = $this->session->getConnection()->query("SELECT password FROM accounts WHERE cookie = ?", array($cookie), true);
+        $information = $this->session->getConnection()->query("SELECT password FROM accounts WHERE session_hash = ?", array($session_hash), true);
 
         if ($this->session->getConnection()->getRowAmount() == 0) {
             return false;
@@ -93,12 +93,34 @@ class Account
             return $this->id;
         }
 
-        $information = $this->session->getConnection()->query("SELECT id FROM accounts WHERE cookie = ?", array($_SESSION['hash']), true);
+        $information = $this->session->getConnection()->query("SELECT id FROM accounts WHERE session_hash = ?", array($_SESSION['hash']), true);
         return $this->id = $information[0]['id'];
+    }
+
+    public function getRank() {
+        if (!isset($_SESSION['hash'])) {
+            return -1;
+        }
+
+        $id = $this->getId();
+
+        if ($id == -1)
+            return -1;
+
+        $information = $this->session->getConnection()->query("SELECT rank FROM accounts WHERE id = ?", array($id), true);
+        if ($this->session->getConnection()->getRowAmount() < 1)
+            return -1;
+
+        return $information[0]['rank'];
+    }
+
+    public function isAdmin() {
+        return $this->getRank() == 3;
     }
 
     public function isLoggedIn() {
         return isset($_SESSION['hash']);
     }
+
 
 }
