@@ -76,7 +76,7 @@ $articles = $article_handler->getArticles(5);
             </ul>
         </fieldset>
 
-        <fieldset class="menu" style="background-image: url('img/title2/gamehelp.gif');">
+        <fieldset class="menu help"">
             <legend>Knowledge Base</legend>
             <ul>
                 <li class="i-answer"><a href="kbase/index.html">Knowledge Base Home</a></li>
@@ -109,7 +109,7 @@ $articles = $article_handler->getArticles(5);
 
         if ($account->isAdmin()) {
             ?>
-            <fieldset class="menu web">
+            <fieldset class="menu">
                 <legend>Administrative</legend>
                 <ul>
                     <li class="i-crown"><a href="?page=admin_cp">Admin Control Panel</a></li>

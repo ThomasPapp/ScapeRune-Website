@@ -48,21 +48,4 @@ class SQLConnection
     public function getRowAmount() {
         return $this->row_amount;
     }
-
-    public function checkBruteLogin( $username ) {
-        $now = time();
-
-        // Timestamp for the past 15 minutes from the current time
-        $login_attempts = $now - ( 15 * 60 );
-
-        // Get all login attempts past 15 minutes
-        $past_login_attempts = $this->connection->query("SELECT timestamp FROM incorrect_logins WHERE username = ? AND timestamp > ?", array($username, $login_attempts), true);
-
-        // If the user has more than 3 failed login past 15 minutes
-        if( count( $past_login_attempts ) > 3 ) {
-            return true;
-        }
-
-        return false;
-    }
 }

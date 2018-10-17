@@ -26,7 +26,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     // login forum details
     $username = $_POST['username'];
     $raw_password = $_POST['password'];
-    $password = hash(sha256, md5(sha1($raw_password)));
+    $password = hash('sha256', md5(sha1($raw_password)));
 
     // the information from the database
     $information = $connection->query("SELECT password FROM accounts WHERE username = ?", array($username), true);
@@ -36,25 +36,36 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $incorrect_login = true;
     } else {
 
-        // Check if the user doesn't have 3 failed logins in the past 15 minutes
-        if(!$connection->checkBruteLogin( $username )) {
+        $remainingLockTime = $session->getRemainingLockTime($username);
 
-            // the password stored in the database
-            $database_password = substr(substr($information[0]['password'], 54), 0, -3);
-
-            if ($password != $database_password) {
-                $incorrect_login = true;
-                $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?, ?)", array($username, $raw_password, time(), $_SERVER['REMOTE_ADDR']), false);
-            } else {
-                $session->generateSessionHash($username);
-                require 'includes/redirect.php';
-                exit;
-            }
-
-        } else {
-            $locked = true;
+        // if the remaining lock time is over, reset it and unlock the account
+        if ($remainingLockTime != null && $remainingLockTime < 0) {
+            $session->unlockAccount($username);
+            $remainingLockTime = null;
         }
 
+        if ($remainingLockTime != null)
+            $locked = true;
+        else {
+            if ($session->checkBruteForce($username)) {
+                $locked = true;
+                $session->lockAccount($username, 10);
+                $remainingLockTime = $session->getRemainingLockTime($username);
+            }
+            else {
+                // the password stored in the database
+                $database_password = substr(substr($information[0]['password'], 54), 0, -3);
+
+                if ($password != $database_password) {
+                    $incorrect_login = true;
+                    $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?)", array($username, time(), $_SERVER['REMOTE_ADDR']), false);
+                } else {
+                    $session->generateSessionHash($username);
+                    require 'includes/redirect.php';
+                    exit;
+                }
+            }
+        }
     }
 }
 
@@ -128,7 +139,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
                                             <table style="-moz-opacity:1.0; opacity:1.0; filter:alpha(opacity=100);width:100%;">
                                                 <tr>
-                                                    <td align="center" style="text-align: center;width:100%;">Your account has been temporarily locked... Try again in 15 minutes.</td>
+                                                    <td align="center" style="text-align: center;width:100%;">
+                                                        Your account has been temporarily locked.
+                                                        <br>
+                                                        Please try again in <?php echo $remainingLockTime; ?> minutes.
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="center">
