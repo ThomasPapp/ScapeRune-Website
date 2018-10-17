@@ -65,7 +65,7 @@ class Session
         $currentTime = time();
 
         // 15 minutes prior to the current time
-        $timeToCheck = $currentTime - (1 * 60);
+        $timeToCheck = $currentTime - (15 * 60);
 
         // all of the incorrect login attempts in the past 15 minutes for the user
         $incorrectAttempts = $this->connection->query("SELECT timestamp FROM incorrect_logins WHERE username = ? AND timestamp > ?", array($username, $timeToCheck), true);
