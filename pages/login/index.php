@@ -31,26 +31,28 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     // the information from the database
     $information = $connection->query("SELECT password FROM accounts WHERE username = ?", array($username), true);
 
+    $ip = $session->getIP();
+
     // no such account
     if ($connection->getRowAmount() == 0) {
         $incorrect_login = true;
     } else {
 
-        $remainingLockTime = $session->getRemainingLockTime($username);
+        $remainingLockTime = $session->getRemainingLockTime($ip);
 
         // if the remaining lock time is over, reset it and unlock the account
         if ($remainingLockTime != null && $remainingLockTime < 0) {
-            $session->unlockAccount($username);
+            $session->unlockAccount($ip);
             $remainingLockTime = null;
         }
 
         if ($remainingLockTime != null)
             $locked = true;
         else {
-            if ($session->checkBruteForce($username)) {
+            if ($session->checkBruteForce($ip)) {
                 $locked = true;
-                $session->lockAccount($username, 10);
-                $remainingLockTime = $session->getRemainingLockTime($username);
+                $session->lockAccount($ip, 10);
+                $remainingLockTime = $session->getRemainingLockTime($ip);
             }
             else {
                 // the password stored in the database
@@ -58,7 +60,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
                 if ($password != $database_password) {
                     $incorrect_login = true;
-                    $connection->query("INSERT INTO incorrect_logins VALUES (?, ?, ?)", array($username, time(), $_SERVER['REMOTE_ADDR']), false);
+                    $connection->query("INSERT INTO incorrect_logins VALUES (?, ?)", array($ip, time()), false);
                 } else {
                     $session->generateSessionHash($username);
                     require 'includes/redirect.php';
