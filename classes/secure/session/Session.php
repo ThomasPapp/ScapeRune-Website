@@ -3,29 +3,24 @@
 /**
  * @author Thomas
  */
-class Session
-{
+class Session {
 
     private $connection;
 
-    function __construct(SQLConnection $connection)
-    {
+    function __construct(SQLConnection $connection){
         $this->connection = $connection;
     }
 
-    public function redirect($path)
-    {
+    public function redirect($path) {
         header('Location: ' . $path);
         exit();
     }
 
-    public function getConnection()
-    {
+    public function getConnection() {
         return $this->connection;
     }
 
-    public function generateSessionHash($username)
-    {
+    public function generateSessionHash($username) {
         $rand = time() + rand(1, 100000);
         $session_hash = md5($rand . $this->generateRandomString());
 
@@ -42,8 +37,7 @@ class Session
         $_SESSION['hash'] = $session_hash;
     }
 
-    private function generateRandomString($length = 20)
-    {
+    private function generateRandomString($length = 20) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -53,15 +47,13 @@ class Session
         return $randomString;
     }
 
-    public function getUserAmount()
-    {
+    public function getUserAmount() {
         $this->connection->query("SELECT * FROM accounts", array(), false);
         return $this->connection->getRowAmount();
     }
 
 
-    public function checkBruteForce($username)
-    {
+    public function checkBruteForce($username) {
         $currentTime = time();
 
         // 15 minutes prior to the current time
@@ -80,8 +72,7 @@ class Session
         return $amount > 1;
     }
 
-    public function lockAccount($username, $time)
-    {
+    public function lockAccount($username, $time) {
         // the timestamp of the current lock
         $timestamp = $this->connection->query("SELECT timestamp FROM locked_accounts WHERE username = ?", array($username), true);
 

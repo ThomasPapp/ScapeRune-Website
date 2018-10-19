@@ -3,8 +3,7 @@
 /**
  * @author Thomas
  */
-class Account
-{
+class Account {
 
     private $session;
 
@@ -14,8 +13,7 @@ class Account
 
     private $display_name = null;
 
-    public function __construct(Session $session)
-    {
+    public function __construct(Session $session) {
         $this->session = $session;
     }
 
