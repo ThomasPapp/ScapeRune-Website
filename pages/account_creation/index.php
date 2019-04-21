@@ -68,25 +68,6 @@ if (isset($_POST['terms_disagree'])) {
 // uncomment the below code for the live version!
 if (/*$_SERVER["REQUEST_METHOD"] == 'POST' &&*/ isset($_POST['password']) && isset($_POST['password_confirm'])) {
 
-//    $captcha_token = $_POST['token'];
-//    $captcha_secret = '6LcokGkUAAAAACtUjer9lRFVaVIETJzJFsf5-8c7';
-//    $captcha_action = $_POST['action'];
-//
-//    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $captcha_secret . '&response=' . $captcha_token);
-//    $responseData = json_decode($verifyResponse);
-//
-//    if( !( $responseData->success  && ( $responseData->action == $captcha_action ) ) ) {
-//        session_unset();
-//        session_destroy();
-//        header("Location: ?page=main"); // captcha check failed
-//        exit;
-//    } else if( $responseData->score < 0.5 ) {
-//        session_unset();
-//        session_destroy();
-//        header("Location: ?page=main"); // probably a bot
-//        exit;
-//    }
-
     if ($_POST['password'] != $_POST['password_confirm']) {
         $error_message = 'The passwords you have entered do not match.<br><br><input type="button" value="Back" onclick="window.location.href=window.location.href"/>';
     } else {
