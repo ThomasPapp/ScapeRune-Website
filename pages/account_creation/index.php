@@ -114,10 +114,6 @@ $boxes = [
     <title><?php echo $title; ?></title>
     <link href="css/basic-3.css" rel="stylesheet" type="text/css" media="all">
     <link href="css/register-1.css" rel="stylesheet" type="text/css" media="all">
-<!--    uncomment the below code for the live version! -->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-<!--    <script src='https://www.google.com/recaptcha/api.js?render=6LcokGkUAAAAAIo1z0lyZ-CO-X0FIy8_5v9ulfTL'></script>-->
-<!--    <script src="js/additions.js"></script>-->
 </head>
 <body>
     <div id="body">
